@@ -26,53 +26,52 @@ void setup() {
 void draw() {
   background(255);
 
-    // Display the image using: image(img, 0, 0, width, height);
-  
+  // Display the image using: image(img, 0, 0, width, height);
+
   dataBending(img, 1); // New Image Manipulation
   image(img, 0, 0, width, height); // old command = randomPixelManipulation(img);
   frameRate(8 + slideRate); // Rate of Image Display
-   
-  
+
+
   // *****  Upper Left Corner TEXT OVERLAY
   fill(0, 150); // Dark background for text
   rect(10, 10, 150, 60, 5); // Rectangle for background for text below (x, y, height, width)
-  
+
   fill(255); // White text
-  
+
   // use nf() if you need to output numbers instead of strings
   text("Use Slider to Bend Faster!", 20, 40); // text overlays data on top of image ("display this", x, y)
 
-text("Slider Value: " + nf(slideRate, 1, 3), 20, 60);
+  text("Slider Value: " + nf(slideRate, 1, 3), 20, 60);
   //   text("NEXT LINE OF TEXT", 20, 80);
 
- // }
-  
-  
+  // }
+
+
   // Update the slider's position based on the mouse
   bendingSlider.update();
 
   // ******* SLIDER DISPLAY ******
-  
-    bendingSlider.display();
-    float newBendingRate = bendingSlider.getValue();
+
+  bendingSlider.display();
+  float newBendingRate = bendingSlider.getValue();
 
   // *** White rectangle above slider to show slider value
   // fill (255);
   // rect(width / 2 - 105, height - 76, 205, 23);
 
   // *** Display Slider value
-  //  fill(0);  
+  //  fill(0);
   //  text("Slider Value: ", width / 2 - 80, height - 60);
   //  *** To display Bending Rate: text(newBendingRate, width / 2 - 1, height - 60);
 
   //  *** Check if the Bending Rate has changed
   if (newBendingRate != slideRate) {
-    
-  // *** Apply data bending based on the slider value
+
+    // *** Apply data bending based on the slider value
     dataBending(img, newBendingRate);
     slideRate = newBendingRate; // Update the bending rate
-
-    }
+  }
 }
 
 
@@ -96,7 +95,6 @@ void mouseReleased() {
 void dataBending(PImage img, float rate) {
 
   img.loadPixels();
-
   for (int i = 0; i < img.pixels.length; i++) {
     // Randomly alter the color values of each pixel
     float r = red(img.pixels[i]);
@@ -107,13 +105,13 @@ void dataBending(PImage img, float rate) {
 
     // Swap Red and Blue channels
     img.pixels[i] = color(b, g, r);
-    
+
     // Ensure color values stay within the valid range (0-255)
     r = constrain(r, 0, 255);
     g = constrain(g, 0, 255);
     b = constrain(b, 0, 255);
 
-//    img.pixels[i] = color(r, g, b);
+    //    img.pixels[i] = color(r, g, b);
   }
 
   img.updatePixels();
